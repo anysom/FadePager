@@ -1,55 +1,58 @@
-;(function(root, $) {
+;(function(root) {
   'use strict';
 
-  var FadePager = function ($fadePagerElem, options) {
+  var FadePager = function (fadePagerElem, options) {
     //if no carousel exists on the page, return
-    if ($fadePagerElem.length === 0) {
+    if (fadePagerElem.length === 0) {
       return;
     }
 
-    var $pageElems = $fadePagerElem.find('.fade-pager__page');
-    var $prevBtn = $fadePagerElem.find('.fade-pager__btn--prev');
-    var $nextBtn = $fadePagerElem.find('.fade-pager__btn--next');
-    var $indicatorBtns = $fadePagerElem.find('.fade-pager__indicator');
+    //if options are not supplied, create empty options object
+    options = options || {};
+
+    var pageElems = fadePagerElem.querySelectorAll('.fade-pager__page');
+    var prevBtn = fadePagerElem.querySelector('.fade-pager__btn--prev');
+    var nextBtn = fadePagerElem.querySelector('.fade-pager__btn--next');
+    var indicatorBtns = fadePagerElem.querySelectorAll('.fade-pager__indicator');
     var index = options.startIndex || 0;
     var periodTime = 4000;
     var activeClass = 'active';
     var fadeOutClass = 'fade-out';
-    var $activeElem = null;
-    var $activeIndicator = null;
+    var activeElem = null;
+    var activeIndicator = null;
 
     if (options.auto) {
-        //set first active element, and at a set interval show the next page.
-        var interval = setInterval(function () {
-          var oldIndex = index;
-          incrementIndex();
-          changePage(index, oldIndex);
-        }, periodTime);
-      }
+      //set first active element, and at a set interval show the next page.
+      var interval = setInterval(function () {
+        var oldIndex = index;
+        incrementIndex();
+        changePage(index, oldIndex);
+      }, periodTime);
+    }
 
-      changePage(index);
-      setTimeout(function() {
-        $fadePagerElem.addClass('initialized');
-      }, 1);
+    changePage(index);
+    setTimeout(function() {
+      fadePagerElem.classList.add('initialized');
+    }, 1);
 
     //***** public functions *******************
     this.next = function () {
       var oldIndex = index;
       incrementIndex();
       manualPageChange(index, oldIndex);
-    }
+    };
 
     this.prev = function () {
       var oldIndex = index;
       decrementIndex();
       manualPageChange(index, oldIndex);
-    }
+    };
 
     this.gotoIndex = function (_index) {
       var oldIndex = index;
       index = _index;
       manualPageChange(index, oldIndex);
-    }
+    };
 
     this.getActivePage = function () {
       return $($pageElems[index]);
@@ -58,9 +61,11 @@
 
 
     //set click handlers
-    $nextBtn.click(this.next);
-    $prevBtn.click(this.prev);
-    $indicatorBtns.click(function () {
+    nextBtn.addEventListener('click', this.next);
+    prevBtn.addEventListener('click', this.prev);
+
+    //lav om til for loop og bind på hvert objekt
+    indicatorBtns.addEventListener('click', function () {
       var oldIndex = index;
       index = $(this).index();
       manualPageChange(index, oldIndex);
@@ -103,25 +108,27 @@
 
       //if another slide was previously active, append 'fade-out' class to it, to fade it out.
       //when the fade animation is done, remove the active and fade out classes.
-      var $prevActiveElem = $activeElem;
+      var prevActiveElem = activeElem;
 
-      if ($activeIndicator) {
-        $activeIndicator.removeClass(activeClass);
+      if (activeIndicator) {
+        activeIndicator.removeClass(activeClass);
       }
 
-      if ($prevActiveElem) {
-        $prevActiveElem.addClass(fadeOutClass);
-        $prevActiveElem.removeClass(activeClass);
+      if (prevActiveElem) {
+        prevActiveElem.addClass(fadeOutClass);
+        prevActiveElem.removeClass(activeClass);
 
         setTimeout(function () {
-          $prevActiveElem.removeClass(fadeOutClass);
+          prevActiveElem.removeClass(fadeOutClass);
         }, 400);
       }
 
       //toggle next active element
-      $activeElem = $($pageElems[index]).addClass(activeClass);
-      $activeIndicator = $($indicatorBtns[index]).addClass(activeClass);
+      activeElem = pageElems[index].classList.add(activeClass);
+      activeIndicator = indicatorBtns[index].classList.add(activeClass);
     }
 
-    root.FadePager = FadePager;
-  };)(this, $);
+  };
+
+  root.FadePager = FadePager;
+})(this);

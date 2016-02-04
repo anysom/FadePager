@@ -68,11 +68,12 @@ gulp.task('javascript', function() {
 });
 
 gulp.task('sass', function () {
+  console.log('STARTING SASSS!!');
   gulp.src(settings.stylesDir+settings.mainSassFile)
     .pipe(sass())
     .on('error', handleError)
     .pipe(minifyCSS())
-    .pipe(rename('GridColumnCarousel.min.css'))
+    .pipe(rename('fadePager.min.css'))
     .pipe(gulp.dest(settings.stylesDir))
     .pipe(reload({stream: true}));
 });

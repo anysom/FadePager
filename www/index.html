@@ -5,20 +5,45 @@
     <link href="css/FadePager.min.css" rel="stylesheet" type="text/css">
 
     <script src="js/FadePager.js"></script>
-    
+
     <style>
-      
+
     </style>
   </head>
   <body>
     <h1>FadePager - demonstration</h1>
 
-    
+    <div class="fade-pager">
+      <ul class="fade-pager__pages">
+        <li class="fade-pager__page frontpage-presentation__page active">
+          <img src="http://lorempixel.com/400/200/people/1" alt="alt text">
+        </li>
+        <li class="fade-pager__page frontpage-presentation__page">
+          <img src="http://lorempixel.com/400/200/people/2" alt="alt text">
+        </li>
+        <li class="fade-pager__page frontpage-presentation__page">
+          <img src="http://lorempixel.com/400/200/people/3" alt="alt text">
+        </li>
+        <li class="fade-pager__page frontpage-presentation__page">
+          <img src="http://lorempixel.com/400/200/people/4" alt="alt text">
+        </li>
+      </ul>
+      <ul class="fade-pager__indicators">
+          <li class="fade-pager__indicator active"></li>
+          <li class="fade-pager__indicator"></li>
+          <li class="fade-pager__indicator"></li>
+      </ul>
+
+      <button class="fade-pager__btn--prev">Prev</button>
+      <button class="fade-pager__btn--next">next</button>
+    </div>
+
   </body>
 
   <script>
     window.onload = function() {
-
+      var fadePagerElem = document.querySelector('.fade-pager');
+      var fadePager = new FadePager(fadePagerElem);
     };
   </script>
 </html>
