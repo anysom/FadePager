@@ -100,8 +100,13 @@
 
 
     //set click handlers
-    nextBtn.addEventListener('click', this.next);
-    prevBtn.addEventListener('click', this.prev);
+    if (nextBtn) {
+      nextBtn.addEventListener('click', this.next);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', this.prev);
+    }
 
     //Add event listener for page change on all indicators
     for (var i = 0; i < indicatorBtns.length; i++) {
