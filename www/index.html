@@ -7,7 +7,22 @@
     <script src="js/FadePager.js"></script>
 
     <style>
+      .fade-pager__pages {
+        width: 400px;
+        height: 300px;
+      }
 
+      .fade-pager__indicator {
+        width: 30px;
+        height: 30px;
+        margin-right: 15px;
+        display: inline-block;
+        background: #ccc;
+      }
+
+      .fade-pager__indicator.active {
+        background: orange;
+      }
     </style>
   </head>
   <body>
@@ -32,18 +47,24 @@
           <li class="fade-pager__indicator active"></li>
           <li class="fade-pager__indicator"></li>
           <li class="fade-pager__indicator"></li>
+          <li class="fade-pager__indicator"></li>
       </ul>
 
       <button class="fade-pager__btn--prev">Prev</button>
       <button class="fade-pager__btn--next">next</button>
     </div>
 
+
   </body>
 
   <script>
     window.onload = function() {
       var fadePagerElem = document.querySelector('.fade-pager');
-      var fadePager = new FadePager(fadePagerElem);
+      var fadePager = new FadePager(fadePagerElem, {
+        auto: false,
+        startIndex: 0,
+        interval: 2000
+      });
     };
   </script>
 </html>
