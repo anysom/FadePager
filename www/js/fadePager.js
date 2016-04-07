@@ -176,7 +176,9 @@
       activeElem = pageElems[index];
       activeElem.classList.add(activeClass);
       activeIndicator = indicatorBtns[index];
-      activeIndicator.classList.add(activeClass);
+      if (activeIndicator) {
+        activeIndicator.classList.add(activeClass);
+      }
     }
   };
 
