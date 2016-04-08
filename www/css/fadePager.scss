@@ -30,6 +30,7 @@ in order to avoid fading in the initial page. */
 
 .fade-pager__page.active {
   opacity: 1;
+  z-index: 1;
 }
 
 .fade-pager__page.fade-out {
