@@ -1,4 +1,17 @@
-;(function(root) {
+;(function(root, fadePager) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register fadePager as an anonymous module
+        define(fadePager);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = fadePager();
+    } else {
+        // Browser globals. Register fadePager on window
+        root.FadePager = fadePager();
+    }
+})(this, function() {
   'use strict';
 
   /**
@@ -28,7 +41,7 @@
   *   -interval: (INTEGER) the interval at which to change page if auto is set to true. Defaults to 5000.
   *
   */
-  var FadePager = function (fadePagerElem, options) {
+  return function (fadePagerElem, options) {
     //if no carousel exists on the page, return
     if (fadePagerElem.length === 0) {
       return;
@@ -186,6 +199,4 @@
       }
     }
   };
-
-  root.FadePager = FadePager;
-})(this);
+});
